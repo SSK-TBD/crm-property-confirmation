@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
 	"time"
 
 	"github.com/chromedp/chromedp"
@@ -289,7 +290,7 @@ func (s *EmailLoginScraper) TakeScreenshot(filename string) error {
 		return fmt.Errorf("failed to take screenshot: %w", err)
 	}
 	
-	if err := writeFile(filename, buf); err != nil {
+	if err := os.WriteFile(filename, buf, 0644); err != nil {
 		return fmt.Errorf("failed to save screenshot: %w", err)
 	}
 	

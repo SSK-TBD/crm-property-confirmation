@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"os"
 	"time"
 )
 
@@ -126,6 +127,14 @@ func main() {
 		// Print details in JSON format for easy parsing
 		jsonData, _ := json.MarshalIndent(details, "", "  ")
 		fmt.Printf("\nProperty Details (JSON):\n%s\n", jsonData)
+		
+		// Save to JSON file
+		jsonFileName := fmt.Sprintf("property_details_%s.json", time.Now().Format("20060102_150405"))
+		if err := os.WriteFile(jsonFileName, jsonData, 0644); err != nil {
+			log.Printf("Error saving JSON file: %v\n", err)
+		} else {
+			fmt.Printf("\nJSON saved to: %s\n", jsonFileName)
+		}
 		
 		// Also print in readable format
 		fmt.Println("\nProperty Details:")

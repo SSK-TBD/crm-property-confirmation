@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"log"
+	"os"
 	"time"
 
 	"github.com/chromedp/chromedp"
@@ -42,7 +43,7 @@ func quickTestFunc() {
 		chromedp.CaptureScreenshot(&buf),
 	)
 	if err == nil {
-		writeFile("quick_test_initial.png", buf)
+		os.WriteFile("quick_test_initial.png", buf, 0644)
 		log.Println("Screenshot saved: quick_test_initial.png")
 	}
 

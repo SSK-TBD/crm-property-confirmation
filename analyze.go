@@ -29,9 +29,8 @@ func runAnalysis() {
 	log.Printf("Current URL: %s\n", url)
 
 	// Analyze login page structure
-	if err := scraper.AnalyzePageStructure(); err != nil {
-		log.Printf("Warning: Analysis failed: %v\n", err)
-	}
+	// AnalyzePageStructure functionality has been removed
+	// (DOM saving is no longer needed)
 
 	// Take screenshot
 	scraper.TakeScreenshot("analysis_login_page.png")
@@ -50,9 +49,8 @@ func runAnalysis() {
 	log.Printf("Current URL: %s\n", url)
 
 	// Analyze post-login page
-	if err := scraper.AnalyzePageStructure(); err != nil {
-		log.Printf("Warning: Analysis failed: %v\n", err)
-	}
+	// AnalyzePageStructure functionality has been removed
+	// (DOM saving is no longer needed)
 
 	// Take screenshot
 	scraper.TakeScreenshot("analysis_post_login.png")

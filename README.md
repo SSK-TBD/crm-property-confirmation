@@ -25,71 +25,71 @@ go mod download
 brew install chromium
 ```
 
+## セットアップ
+
+### 認証情報の設定
+
+認証情報を環境変数で設定してください：
+
+```bash
+export ITANDI_EMAIL="your-email@example.com"
+export ITANDI_PASSWORD="your-password"
+```
+
+または `.env` ファイルを作成（`.env.example` を参考）：
+
+```bash
+cp .env.example .env
+# .env ファイルを編集して認証情報を設定
+```
+
 ## 使い方
 
 ### 基本的な使い方
 
 ```bash
-# メール・パスワードでのログイン（推奨）
-go run . -property "物件名"
+# 物件名を指定して検索
+go run . -property "クレールメゾン遠里小野"
 
 # ヘッドレスモードで実行
 go run . -property "物件名" -headless
-
-# 電話認証システム対応版（電話認証が必要）
-go run . -updated
-
-# メール・パスワードログインを明示的に使用
-go run . -email-login
-
-# HTML構造の分析モード
-go run . -analyze
-
-# ログインページ検索モード
-go run . -find-login
 ```
 
 ### コマンドラインオプション
 
 - `-property`: 検索する物件名（省略時は「サンプル物件」）
 - `-headless`: ヘッドレスモードで実行（ブラウザを表示しない）
-- `-email-login`: メール・パスワードログインを使用（デフォルトと同じ）
-- `-updated`: 電話認証システム対応版スクレーパーを使用
-- `-analyze`: HTML構造分析モードで実行（開発・デバッグ用）
-- `-find-login`: ログインページ検索モード（開発・デバッグ用）
 
 ## 実行例
 
 ```bash
-# 「クレール立川」という物件を検索（メール・パスワードログイン）
-go run . -property "クレール立川"
+# 環境変数を設定して実行
+export ITANDI_EMAIL="info@clair-tachikawa.com"
+export ITANDI_PASSWORD="clair123"
+go run . -property "クレールメゾン遠里小野"
 
-# ヘッドレスモードで実行
-go run . -property "クレール立川" -headless
-
-# 電話認証が必要な場合
-go run . -updated
+# .envファイルを使用
+source .env && go run . -property "クレールメゾン遠里小野"
 ```
 
 ## 出力
 
-プログラムは以下の情報を出力します：
+プログラムは以下のファイルを生成します：
 
-1. **コンソール出力**: 各ステップの進捗状況と取得した物件情報
-2. **スクリーンショット**:
+1. **JSON出力**: `property_details_YYYYMMDD_HHMMSS.json` - 物件詳細情報
+2. **DOM出力**: `property_card_dom_YYYYMMDD_HHMMSS.html` - 物件カードのDOM（モバイル表示）
+3. **スクリーンショット**:
    - `step1_login_page.png`: ログインページ
    - `step2_after_login.png`: ログイン後の画面
    - `step3_search_results.png`: 検索結果画面
    - `step4_property_details.png`: 物件詳細画面
-3. **JSON形式の物件情報**: 取得できた物件詳細情報
 
 ## 注意事項
 
-- **重要**: ITANDI BBは電話認証が必要なシステムです。完全な自動化には限界があります
-- ログイン情報はソースコードに含まれています（実際の運用では環境変数等を使用してください）
+- **重要**: 認証情報は絶対にコミットしないでください
+- `.env` ファイルは `.gitignore` に追加されています
 - ITANDI BBのUIが変更された場合、セレクタの調整が必要になる可能性があります
 - 初回実行時はChromiumのダウンロードに時間がかかる場合があります
-- `-updated` フラグを使用すると、実際のITANDI BB構造に対応したスクレーパーが実行されます
 
 ## トラブルシューティング
 

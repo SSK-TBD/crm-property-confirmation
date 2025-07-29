@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
 	"time"
 
 	"github.com/chromedp/chromedp"
@@ -290,7 +291,7 @@ func (s *ITANDIScraperUpdated) TakeScreenshot(filename string) error {
 	}
 	
 	// Save to file
-	if err := writeFile(filename, buf); err != nil {
+	if err := os.WriteFile(filename, buf, 0644); err != nil {
 		return fmt.Errorf("failed to save screenshot: %w", err)
 	}
 	

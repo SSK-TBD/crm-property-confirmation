@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 	"time"
 
 	"github.com/chromedp/chromedp"
@@ -80,7 +81,7 @@ func findLoginPage() {
 			
 			// Save HTML
 			htmlFilename := "login_page_" + fmt.Sprintf("%d", i+1) + ".html"
-			writeFile(htmlFilename, []byte(html))
+			os.WriteFile(htmlFilename, []byte(html), 0644)
 			
 			log.Printf("Screenshots and HTML saved for %s\n", url)
 		} else {
